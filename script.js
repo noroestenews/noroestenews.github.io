@@ -25,7 +25,13 @@ document.getElementById("volunteerForm").addEventListener("submit", function(eve
         },
         body: JSON.stringify(formData)
     })
-    .then(response => response.text())
+    .then(response => {
+        if (response.ok) {
+            return response.text();
+        } else {
+            throw new Error('Erro ao enviar os dados para o Google Sheets');
+        }
+    })
     .then(data => {
         console.log(data);
         alert("Cadastro enviado com sucesso!");
@@ -35,4 +41,5 @@ document.getElementById("volunteerForm").addEventListener("submit", function(eve
         alert("Falha ao enviar o cadastro.");
     });
 });
+
 
