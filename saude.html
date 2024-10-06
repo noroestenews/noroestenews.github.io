@@ -22,7 +22,7 @@
     <main>
         <section>
             <h2>Melhorando a Saúde em Itaperuna</h2>
-            <p>Neste projeto, vamos focar em aumentar o acesso à saúde, melhorar a infraestrutura dos hospitais e promover campanhas de prevenção de doenças.</p>
+            <p>Vamos focar em melhorar os serviços de saúde e promover campanhas de prevenção.</p>
         </section>
         <section>
             <h2>Participe do nosso projeto!</h2>
@@ -47,6 +47,9 @@
                     <option value="outros">Outros</option>
                 </select>
 
+                <label for="intencao">Intenção de Voto:</label>
+                <input type="text" id="intencao" name="intencao" required>
+
                 <button type="submit">Enviar</button>
             </form>
         </section>
@@ -66,7 +69,10 @@
                 alert('Dados enviados com sucesso!');
                 form.reset(); // Reseta o formulário após envio
             })
-            .catch(error => console.error('Erro!', error.message));
+            .catch(error => {
+                console.error('Erro!', error.message);
+                alert('Ocorreu um erro. Tente novamente mais tarde.');
+            });
     });
     </script>
 </body>
