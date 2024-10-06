@@ -17,21 +17,25 @@
             background-color: #0038a8; /* Azul do PL */
             color: #ffffff;
             padding: 20px;
-            text-align: center;
+            display: flex; /* Usando flexbox para alinhamento */
+            align-items: center; /* Alinha itens verticalmente */
         }
 
         header img {
             width: 100px; /* Ajuste o tamanho da logo */
             height: auto;
+            margin-right: 20px; /* Espaçamento entre a logo e o texto */
         }
 
         nav ul {
             list-style: none;
             padding: 0;
+            margin: 0;
+            display: flex; /* Usando flexbox para o menu */
+            justify-content: flex-end; /* Alinha o menu à direita */
         }
 
         nav ul li {
-            display: inline;
             margin: 0 15px;
         }
 
@@ -61,9 +65,11 @@
 </head>
 <body>
     <header>
-        <img src="logo_pl.png" alt="Logo do PL"> <!-- Logo do PL -->
-        <h1>Projeto Político Itaperuna - PL 22</h1>
-        <h2>Todos por uma Itaperuna Melhor!</h2>
+        <img src="logo_pl.png" alt="Logo do PL"> <!-- Logo do PL no canto esquerdo -->
+        <div>
+            <h1>Projeto Político Itaperuna - PL 22</h1>
+            <h2>Todos por uma Itaperuna Melhor!</h2>
+        </div>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -136,5 +142,6 @@
     </script>
 </body>
 </html>
+
 
 
