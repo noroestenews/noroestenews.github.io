@@ -63,16 +63,19 @@
 
         fetch(scriptURL, { method: 'POST', body: new FormData(form) })
             .then(response => {
+                console.log('Resposta da API:', response); // Log para verificar a resposta da API
                 if (response.ok) {
                     alert('Dados enviados com sucesso!');
                     form.reset(); // Reseta o formulário após envio
                 } else {
-                    throw new Error('Erro ao enviar os dados.'); // Para tratamento de erro
+                    return response.text().then(text => { // Captura o texto da resposta
+                        throw new Error(text);
+                    });
                 }
             })
             .catch(error => {
                 console.error('Erro!', error.message);
-                alert('Ocorreu um erro. Tente novamente mais tarde.');
+                alert('Ocorreu um erro: ' + error.message); // Mostra o erro no alerta
             });
     });
     </script>
