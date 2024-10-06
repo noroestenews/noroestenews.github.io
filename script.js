@@ -1,45 +1,21 @@
-document.getElementById("volunteerForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Impede o envio padrão do formulário
+const scriptURL = 'https://api.sheetmonkey.io/form/7wx8BeiFcDt93cTxQSQR8t'; // URL da API
+const form = document.getElementById('campaignForm');
 
-    // Captura os dados do formulário
-    let nome = document.getElementById("nome").value;
-    let email = document.getElementById("email").value;
-    let endereco = document.getElementById("endereco").value;
-    let role = document.getElementById("role").value;
-    let voto = document.getElementById("voto").value;
-
-    // Cria o objeto com os dados
-    let formData = {
-        nome: nome,
-        email: email,
-        endereco: endereco,
-        role: role,
-        voto: voto
-    };
-
-    // Envia os dados para a API do SheetMonkey
-    fetch('https://api.sheetmonkey.io/form/7wx8BeiFcDt93cTxQSQR8t', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
+form.addEventListener('submit', e => {
+  e.preventDefault(); 
+  
+  fetch(scriptURL, { 
+    method: 'POST', 
+    body: new FormData(form) 
+  })
     .then(response => {
-        if (response.ok) {
-            return response.text();
-        } else {
-            throw new Error('Erro ao enviar os dados para o Google Sheets');
-        }
+      if (response.ok) {
+        alert('Dados enviados com sucesso!');
+      } else {
+        throw new Error('Falha ao enviar os dados.');
+      }
     })
-    .then(data => {
-        console.log(data);
-        alert("Cadastro enviado com sucesso!");
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-        alert("Falha ao enviar o cadastro.");
-    });
+    .catch(error => console.error('Erro!', error.message));
 });
 
 
