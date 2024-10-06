@@ -1,4 +1,4 @@
-const scriptURL = 'AIzaSyBi1Vhcr2uwU7EHaIFsEGYI9hncvrS6fuQ'; // Use a URL gerada pela Google Sheets API
+const scriptURL = 'https://api.sheetmonkey.io/form/7wx8BeiFcDt93cTxQSQR8t'; // Use a URL gerada pela Google Sheets API
 const form = document.getElementById('campaignForm');
 
 form.addEventListener('submit', e => {
