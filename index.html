@@ -22,7 +22,7 @@
     <main>
         <section>
             <h2>Participe do nosso projeto!</h2>
-            <form id="campaignForm">
+            <form id="campaignForm" novalidate>
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" required>
 
@@ -36,7 +36,8 @@
                 <input type="text" id="endereco" name="endereco" required>
 
                 <label for="cargo">Cargo:</label>
-                <select id="cargo" name="cargo">
+                <select id="cargo" name="cargo" required>
+                    <option value="">Selecione...</option>
                     <option value="coordenador">Coordenador</option>
                     <option value="organizador">Organizador</option>
                     <option value="panfletador">Panfletador</option>
@@ -62,8 +63,12 @@
 
         fetch(scriptURL, { method: 'POST', body: new FormData(form) })
             .then(response => {
-                alert('Dados enviados com sucesso!');
-                form.reset(); // Reseta o formulário após envio
+                if (response.ok) {
+                    alert('Dados enviados com sucesso!');
+                    form.reset(); // Reseta o formulário após envio
+                } else {
+                    throw new Error('Erro ao enviar os dados.'); // Para tratamento de erro
+                }
             })
             .catch(error => {
                 console.error('Erro!', error.message);
@@ -73,7 +78,3 @@
     </script>
 </body>
 </html>
-
-
-
-
