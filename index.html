@@ -1,83 +1,74 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto Político - Itaperuna</title>
+    <title>Projeto Político - Itaperuna-RJ</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Projeto Político Itaperuna - PL</h1>
+        <h1>Projeto Político Itaperuna-RJ</h1>
         <nav>
             <ul>
-                <li><a href="#health">Saúde</a></li>
-                <li><a href="#social">Bem-estar Social</a></li>
-                <li><a href="#education">Educação</a></li>
-                <li><a href="#security">Segurança</a></li>
-                <li><a href="#volunteers">Cadastro de Voluntários</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="saude.html">Saúde</a></li>
+                <li><a href="bem-estar.html">Bem-estar Social</a></li>
+                <li><a href="educacao.html">Educação</a></li>
+                <li><a href="seguranca.html">Segurança</a></li>
             </ul>
         </nav>
     </header>
-    
     <main>
-        <section id="health">
-            <h2>Saúde</h2>
-            <p>Aumentar a eficiência do sistema de saúde e garantir acesso a todos os cidadãos de Itaperuna.</p>
+        <section>
+            <h2>Bem-vindo ao Projeto Político</h2>
+            <p>Este projeto visa melhorar a qualidade de vida em Itaperuna-RJ, abordando questões cruciais nas áreas de saúde, educação, segurança e bem-estar social.</p>
         </section>
-
-        <section id="social">
-            <h2>Bem-estar Social</h2>
-            <p>Inclusão social e apoio às famílias em situação de vulnerabilidade, promovendo igualdade de oportunidades.</p>
-        </section>
-
-        <section id="education">
-            <h2>Educação</h2>
-            <p>Investimento em tecnologia e qualificação para preparar os jovens de Itaperuna para o futuro.</p>
-        </section>
-
-        <section id="security">
-            <h2>Segurança</h2>
-            <p>Segurança pública integrada com a comunidade, promovendo cidadania e proteção a todos os bairros.</p>
-        </section>
-
-        <!-- Formulário de Cadastro de Voluntários -->
-        <section id="volunteers">
-            <h2>Cadastro de Voluntários</h2>
-            <p>Preencha o formulário abaixo para participar da campanha política e escolher o seu papel.</p>
-            
-            <form id="volunteerForm">
-                <label for="nome">Nome Completo:</label>
+        <section>
+            <h2>Participe do nosso projeto!</h2>
+            <form id="campaignForm">
+                <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" required>
 
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
 
+                <label for="telefone">Telefone:</label>
+                <input type="tel" id="telefone" name="telefone" required>
+
                 <label for="endereco">Endereço:</label>
                 <input type="text" id="endereco" name="endereco" required>
 
-                <label for="role">Função na Campanha:</label>
-                <select id="role" name="role" required>
-                    <option value="Coordenador">Coordenador</option>
-                    <option value="Organizador">Organizador</option>
-                    <option value="Panfletador">Panfletador</option>
-                    <option value="Outros">Outros</option>
+                <label for="cargo">Cargo:</label>
+                <select id="cargo" name="cargo">
+                    <option value="coordenador">Coordenador</option>
+                    <option value="organizador">Organizador</option>
+                    <option value="panfletador">Panfletador</option>
+                    <option value="outros">Outros</option>
                 </select>
-
-                <label for="voto">Intenção de Voto:</label>
-                <input type="text" id="voto" name="voto" required>
 
                 <button type="submit">Enviar</button>
             </form>
         </section>
     </main>
-
     <footer>
-        <p>&copy; 2024 Projeto Político Itaperuna - Partido PL</p>
+        <p>&copy; 2024 Projeto Político Itaperuna-RJ - PL 22</p>
     </footer>
+    <script>
+    const scriptURL = 'https://api.sheetmonkey.io/form/7wx8BeiFcDt93cTxQSQR8t';
+    const form = document.getElementById('campaignForm');
 
-    <script src="script.js"></script>
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+            .then(response => {
+                alert('Dados enviados com sucesso!');
+                form.reset(); // Reseta o formulário após envio
+            })
+            .catch(error => console.error('Erro!', error.message));
+    });
+    </script>
 </body>
 </html>
 
