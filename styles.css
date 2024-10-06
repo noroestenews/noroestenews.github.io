@@ -67,18 +67,42 @@ button:hover {
 
 form {
     background-color: white;
-    padding: 20px;
+    padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    width: 60%;
+    margin: 0 auto;
 }
 
 input[type="text"],
-input[type="email"] {
+input[type="email"],
+select {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #006064;
     border-radius: 5px;
+}
+
+select {
+    background-color: white;
+    cursor: pointer;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: #006064;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+button:hover {
+    background-color: #004d4d;
 }
 
 footer {
@@ -90,4 +114,5 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
 
