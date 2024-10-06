@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <h1>Projeto Político Itaperuna-RJ</h1>
+        <h1>Projeto Político Itaperuna - PL 22</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -20,10 +20,6 @@
         </nav>
     </header>
     <main>
-        <section>
-            <h2>Bem-vindo ao Projeto Político</h2>
-            <p>Este projeto visa melhorar a qualidade de vida em Itaperuna-RJ, abordando questões cruciais nas áreas de saúde, educação, segurança e bem-estar social.</p>
-        </section>
         <section>
             <h2>Participe do nosso projeto!</h2>
             <form id="campaignForm">
@@ -47,6 +43,9 @@
                     <option value="outros">Outros</option>
                 </select>
 
+                <label for="intencao">Intenção de Voto:</label>
+                <input type="text" id="intencao" name="intencao" required>
+
                 <button type="submit">Enviar</button>
             </form>
         </section>
@@ -66,11 +65,15 @@
                 alert('Dados enviados com sucesso!');
                 form.reset(); // Reseta o formulário após envio
             })
-            .catch(error => console.error('Erro!', error.message));
+            .catch(error => {
+                console.error('Erro!', error.message);
+                alert('Ocorreu um erro. Tente novamente mais tarde.');
+            });
     });
     </script>
 </body>
 </html>
+
 
 
 
