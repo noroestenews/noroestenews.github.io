@@ -5,27 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestão de Campanha Política</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Gestão de Campanha</h1>
+        <h1>Gestão de Campanha Política</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Início</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#geopolitics">Cenário Geopolítico</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+        </nav>
     </header>
     
     <main>
-        <form id="campaignForm">
-            <label for="nome">Nome do Eleitor:</label>
-            <input type="text" id="nome" name="nome" required>
-            
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            
-            <label for="voto">Intenção de Voto:</label>
-            <input type="text" id="voto" name="voto" required>
-            
-            <button type="submit">Enviar</button>
-        </form>
+        <section id="home">
+            <h2>Bem-vindo à sua Campanha</h2>
+            <p>Gerencie sua campanha política de maneira eficiente com nossa ferramenta.</p>
+            <button onclick="window.location.href='#geopolitics'">Explorar Geopolítica</button>
+        </section>
+
+        <section id="geopolitics">
+            <h2>Cenário Geopolítico Atual</h2>
+            <p>Obtenha informações sobre o cenário político atual, influências internacionais, e os principais desafios para o próximo mandato.</p>
+            <ul>
+                <li>Conflitos regionais e impactos locais</li>
+                <li>Parcerias econômicas internacionais</li>
+                <li>Influência de grandes potências no cenário nacional</li>
+            </ul>
+        </section>
+
+        <section id="contact">
+            <h2>Fale Conosco</h2>
+            <form id="campaignForm">
+                <label for="nome">Nome do Eleitor:</label>
+                <input type="text" id="nome" name="nome" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="voto">Intenção de Voto:</label>
+                <input type="text" id="voto" name="voto" required>
+
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
     </main>
+
+    <footer>
+        <p>&copy; 2024 Gestão de Campanha Política</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
+
