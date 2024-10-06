@@ -4,80 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador de Urna Eletrônica</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        header {
-            background-color: #0038a8;
+        .urna {
+            width: 300px;
+            background-color: #333;
             color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .tela {
+            background-color: black;
+            height: 60px;
+            color: #0f0;
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 20px;
             padding: 10px;
         }
 
-        .simulator {
-            margin-top: 50px;
+        .teclado {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
         }
 
-        .simulator input {
-            font-size: 24px;
-            padding: 10px;
-            width: 60px;
-            margin-right: 10px;
-        }
-
-        .simulator button {
-            padding: 10px 20px;
+        .teclado button {
+            padding: 15px;
             font-size: 18px;
-            background-color: #0038a8;
-            color: white;
-            border: none;
             cursor: pointer;
+            border: none;
+            border-radius: 5px;
         }
 
-        .simulator button:hover {
-            background-color: #002d80;
+        .confirmar {
+            background-color: green;
+            color: white;
         }
 
-        .result {
-            margin-top: 20px;
+        .corrigir {
+            background-color: orange;
+            color: white;
         }
 
-        h1, h2 {
-            color: #009c3b; /* Verde */
-            text-align: center;
+        .branco {
+            background-color: white;
+            color: black;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Simulador de Urna Eletrônica</h1>
-    </header>
-
-    <div class="simulator">
-        <h2>Digite o número do seu candidato</h2>
-        <input type="text" id="voto" maxlength="2" placeholder="00">
-        <button onclick="registrarVoto()">Votar</button>
-
-        <div class="result" id="resultado"></div>
+    <div class="urna">
+        <div class="tela" id="tela">--</div>
+        <div class="teclado">
+            <button onclick="digitar(1)">1</button>
+            <button onclick="digitar(2)">2</button>
+            <button onclick="digitar(3)">3</button>
+            <button onclick="digitar(4)">4</button>
+            <button onclick="digitar(5)">5</button>
+            <button onclick="digitar(6)">6</button>
+            <button onclick="digitar(7)">7</button>
+            <button onclick="digitar(8)">8</button>
+            <button onclick="digitar(9)">9</button>
+            <button class="branco" onclick="votarBranco()">Branco</button>
+            <button onclick="digitar(0)">0</button>
+            <button class="corrigir" onclick="corrigir()">Corrigir</button>
+        </div>
+        <button class="confirmar" style="margin-top: 15px; width: 100%;" onclick="confirmar()">Confirmar</button>
     </div>
 
     <script>
-    function registrarVoto() {
-        const voto = document.getElementById('voto').value;
-        const resultadoDiv = document.getElementById('resultado');
+        let numero = '';
+        const tela = document.getElementById('tela');
 
-        if (voto === '22') {
-            resultadoDiv.innerHTML = '<h3>Você votou no candidato do PL!</h3>';
-        } else {
-            resultadoDiv.innerHTML = '<h3>Número inválido! Tente novamente.</h3>';
+        function digitar(n) {
+            if (numero.length < 2) {
+                numero += n;
+                tela.innerText = numero;
+            }
         }
-    }
+
+        function corrigir() {
+            numero = '';
+            tela.innerText = '--';
+        }
+
+        function votarBranco() {
+            numero = 'Branco';
+            tela.innerText = 'Branco';
+        }
+
+        function confirmar() {
+            if (numero === '') {
+                alert('Digite um número de candidato ou vote em Branco.');
+                return;
+            }
+
+            // Aqui, envia os dados para o Google Sheets usando a API
+            const scriptURL = 'https://api.sheetmonkey.io/form/7wx8BeiFcDt93cTxQSQR8t'; // Use sua API aqui
+
+            const formData = new FormData();
+            formData.append('voto', numero);
+
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Voto confirmado!');
+                        corrigir(); // Limpa a tela após o voto
+                    } else {
+                        throw new Error('Erro ao enviar os dados!');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro!', error.message);
+                    alert('Ocorreu um erro: ' + error.message);
+                });
+        }
     </script>
 </body>
 </html>
+
