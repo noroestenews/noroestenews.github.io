@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segurança - Projeto Político - Itaperuna-RJ</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Segurança</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="saude.html">Saúde</a></li>
+                <li><a href="bem-estar.html">Bem-estar Social</a></li>
+                <li><a href="educacao.html">Educação</a></li>
+                <li><a href="seguranca.html">Segurança</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Segurança em Itaperuna</h2>
+            <p>Vamos implementar políticas de segurança pública e promover a integração da comunidade com a polícia para garantir um ambiente seguro para todos.</p>
+        </section>
+        <section>
+            <h2>Participe do nosso projeto!</h2>
+            <form id="campaignForm">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="telefone">Telefone:</label>
+                <input type="tel" id="telefone" name="telefone" required>
+
+                <label for="endereco">Endereço:</label>
+                <input type="text" id="endereco" name="endereco" required>
+
+                <label for="cargo">Cargo:</label>
+                <select id="cargo" name="cargo">
+                    <option value="coordenador">Coordenador</option>
+                    <option value="organizador">Organizador</option>
+                    <option value="panfletador">Panfletador</option>
+                    <option value="outros">Outros</option>
+                </select>
+
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Projeto Político Itaperuna-RJ - PL 22</p>
+    </footer>
+    <script>
+    const scriptURL = 'https://api.sheetmonkey.io/form/7wx8BeiFcDt93cTxQSQR8t';
+    const form = document.getElementById('campaignForm');
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+            .then(response => {
+                alert('Dados enviados com sucesso!');
+                form.reset(); // Reseta o formulário após envio
+            })
+            .catch(error => console.error('Erro!', error.message));
+    });
+    </script>
+</body>
+</html>
