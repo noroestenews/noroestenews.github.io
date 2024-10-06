@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Urna Eletrônica</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #0038a8;
+            color: white;
+            padding: 10px;
+        }
+
+        .simulator {
+            margin-top: 50px;
+        }
+
+        .simulator input {
+            font-size: 24px;
+            padding: 10px;
+            width: 60px;
+            margin-right: 10px;
+        }
+
+        .simulator button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #0038a8;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .simulator button:hover {
+            background-color: #002d80;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        h1, h2 {
+            color: #009c3b; /* Verde */
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Simulador de Urna Eletrônica</h1>
+    </header>
+
+    <div class="simulator">
+        <h2>Digite o número do seu candidato</h2>
+        <input type="text" id="voto" maxlength="2" placeholder="00">
+        <button onclick="registrarVoto()">Votar</button>
+
+        <div class="result" id="resultado"></div>
+    </div>
+
+    <script>
+    function registrarVoto() {
+        const voto = document.getElementById('voto').value;
+        const resultadoDiv = document.getElementById('resultado');
+
+        if (voto === '22') {
+            resultadoDiv.innerHTML = '<h3>Você votou no candidato do PL!</h3>';
+        } else {
+            resultadoDiv.innerHTML = '<h3>Número inválido! Tente novamente.</h3>';
+        }
+    }
+    </script>
+</body>
+</html>
