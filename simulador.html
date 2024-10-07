@@ -1,138 +1,224 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
+<html lang="pt-br">
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Urna Eletrônica</title>
+    <title>Simulador de Urna Eletrônica - Eleição Municipal</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .urna {
-            width: 300px;
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .tela {
-            background-color: black;
-            height: 60px;
-            color: #0f0;
-            text-align: center;
-            font-size: 30px;
-            margin-bottom: 20px;
-            padding: 10px;
-        }
-
-        .teclado {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-
-        .teclado button {
-            padding: 15px;
-            font-size: 18px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-        }
-
-        .confirmar {
-            background-color: green;
-            color: white;
-        }
-
-        .corrigir {
-            background-color: orange;
-            color: white;
-        }
-
-        .branco {
-            background-color: white;
-            color: black;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      #urna {
+        background-color: #c0c0c0;
+        border: 1px solid #000;
+        padding: 20px;
+        width: 400px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+      }
+      #tela {
+        width: 100%;
+        height: 100px;
+        background-color: #fff;
+        border: 2px solid #000;
+        margin-bottom: 20px;
+        text-align: center;
+        padding-top: 20px;
+        font-size: 18px;
+      }
+      #teclado {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      button {
+        width: 100%;
+        padding: 20px;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+      }
+      .num-btn {
+        background-color: #333;
+        color: #fff;
+      }
+      .action-btn {
+        background-color: #f0f0f0;
+        color: #000;
+      }
+      #branco {
+        background-color: #fff;
+        color: #000;
+        border: 2px solid #000;
+      }
+      #corrige {
+        background-color: #f39c12;
+        color: #fff;
+        border: 2px solid #000;
+      }
+      #confirma {
+        background-color: #27ae60;
+        color: #fff;
+        border: 2px solid #000;
+      }
+      #cargo-atual {
+        font-size: 18px;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      #info-candidato {
+        display: none;
+        margin-top: 10px;
+      }
+      #info-candidato img {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        display: block;
+      }
+      #info-candidato p {
+        text-align: center;
+      }
     </style>
-</head>
-<body>
-    <div class="urna">
-        <div class="tela" id="tela">--</div>
-        <div class="teclado">
-            <button onclick="digitar(1)">1</button>
-            <button onclick="digitar(2)">2</button>
-            <button onclick="digitar(3)">3</button>
-            <button onclick="digitar(4)">4</button>
-            <button onclick="digitar(5)">5</button>
-            <button onclick="digitar(6)">6</button>
-            <button onclick="digitar(7)">7</button>
-            <button onclick="digitar(8)">8</button>
-            <button onclick="digitar(9)">9</button>
-            <button class="branco" onclick="votarBranco()">Branco</button>
-            <button onclick="digitar(0)">0</button>
-            <button class="corrigir" onclick="corrigir()">Corrigir</button>
-        </div>
-        <button class="confirmar" style="margin-top: 15px; width: 100%;" onclick="confirmar()">Confirmar</button>
+  </head>
+  <body>
+    <div id="urna">
+      <div id="tela">Digite o número do candidato</div>
+      <div id="cargo-atual">Vereador</div>
+      <div id="info-candidato">
+        <img src="" id="foto-candidato" alt="Foto do candidato">
+        <p id="nome-candidato"></p>
+        <p id="partido-candidato"></p>
+      </div>
+      <div id="teclado">
+        <button class="num-btn">1</button>
+        <button class="num-btn">2</button>
+        <button class="num-btn">3</button>
+        <button class="num-btn">4</button>
+        <button class="num-btn">5</button>
+        <button class="num-btn">6</button>
+        <button class="num-btn">7</button>
+        <button class="num-btn">8</button>
+        <button class="num-btn">9</button>
+        <button id="branco" class="action-btn">BRANCO</button>
+        <button class="num-btn">0</button>
+        <button id="corrige" class="action-btn">CORRIGE</button>
+      </div>
+      <button id="confirma" class="action-btn" style="width: 100%;">CONFIRMA</button>
     </div>
 
     <script>
-        let numero = '';
-        const tela = document.getElementById('tela');
+      const tela = document.getElementById('tela');
+      const cargoAtual = document.getElementById('cargo-atual');
+      const nomeCandidato = document.getElementById('nome-candidato');
+      const partidoCandidato = document.getElementById('partido-candidato');
+      const fotoCandidato = document.getElementById('foto-candidato');
+      const infoCandidato = document.getElementById('info-candidato');
+      
+      let numero = '';
+      let cargo = 'Vereador';
+      let votos = {
+        vereador: {},
+        prefeito: {}
+      };
 
-        function digitar(n) {
-            if (numero.length < 2) {
-                numero += n;
-                tela.innerText = numero;
-            }
+      const candidatos = {
+        vereador: {
+          '12345': { nome: 'Jefferson de Castro', partido: 'Partido PL', foto: 'candidatoA.jpg' },
+          '54321': { nome: 'Nel da Vinhosa', partido: 'Partido PSOL', foto: 'candidatoB.jpg' }
+        },
+        prefeito: {
+          '12': { nome: 'Candidato C', partido: 'Partido C', foto: 'candidatoC.jpg' },
+          '34': { nome: 'Candidato D', partido: 'Partido D', foto: 'candidatoD.jpg' }
         }
+      };
 
-        function corrigir() {
+      function tocarSom(nomeSom) {
+        const audio = new Audio(nomeSom);
+        audio.play();
+      }
+
+      const botoes = document.querySelectorAll('.num-btn');
+      botoes.forEach(botao => {
+        botao.addEventListener('click', () => {
+          if (cargo === 'Vereador' && numero.length < 5) {
+            numero += botao.innerText;
+          } else if (cargo === 'Prefeito' && numero.length < 2) {
+            numero += botao.innerText;
+          }
+          tela.innerText = numero;
+          
+          if (candidatos[cargo.toLowerCase()][numero]) {
+            const candidato = candidatos[cargo.toLowerCase()][numero];
+            infoCandidato.style.display = 'block';
+            nomeCandidato.innerText = 'Nome: ' + candidato.nome;
+            partidoCandidato.innerText = 'Partido: ' + candidato.partido;
+            fotoCandidato.src = candidato.foto;
+          }
+        });
+      });
+
+      document.getElementById('corrige').addEventListener('click', () => {
+        numero = '';
+        tela.innerText = 'Digite o número do candidato';
+        infoCandidato.style.display = 'none';
+        tocarSom('sons/corrige.mp3');
+      });
+
+      document.getElementById('branco').addEventListener('click', () => {
+        numero = 'BRANCO';
+        tela.innerText = 'Voto em Branco';
+        infoCandidato.style.display = 'none';
+        tocarSom('sons/som_confirmacao.mp3');
+      });
+
+      document.getElementById('confirma').addEventListener('click', () => {
+        if (cargo === 'Vereador' && (numero.length === 5 || numero === 'BRANCO')) {
+          votos.vereador = numero;
+          cargo = 'Prefeito';
+          numero = '';
+          cargoAtual.innerText = 'Prefeito';
+          tela.innerText = 'Digite o número do candidato';
+          infoCandidato.style.display = 'none';
+          tocarSom('sons/som_confirmacao.mp3');
+        } else if (cargo === 'Prefeito' && (numero.length === 2 || numero === 'BRANCO')) {
+          votos.prefeito = numero;
+          tela.innerText = 'Voto confirmado!';
+          tocarSom('sons/som_confirmacao.mp3');
+          salvarVotos(votos);
+          setTimeout(() => {
             numero = '';
-            tela.innerText = '--';
+            cargo = 'Vereador';
+            cargoAtual.innerText = 'Vereador';
+            tela.innerText = 'Digite o número do candidato';
+            infoCandidato.style.display = 'none';
+          }, 2000);
+        } else {
+          tela.innerText = 'Número inválido';
+          tocarSom('sons/erro.mp3');
         }
+      });
 
-        function votarBranco() {
-            numero = 'Branco';
-            tela.innerText = 'Branco';
-        }
-
-        function confirmar() {
-            if (numero === '') {
-                alert('Digite um número de candidato ou vote em Branco.');
-                return;
-            }
-
-            // Aqui, envia os dados para o Google Sheets usando a API
-            const scriptURL = 'https://api.sheetmonkey.io/form/7wx8BeiFcDt93cTxQSQR8t'; // Use sua API aqui
-
-            const formData = new FormData();
-            formData.append('voto', numero);
-
-            fetch(scriptURL, { method: 'POST', body: formData })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Voto confirmado!');
-                        corrigir(); // Limpa a tela após o voto
-                    } else {
-                        throw new Error('Erro ao enviar os dados!');
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro!', error.message);
-                    alert('Ocorreu um erro: ' + error.message);
-                });
-        }
+      function salvarVotos(votos) {
+        const csvContent = 'data:text/csv;charset=utf-8,' +
+          ['Cargo', 'Voto'].join(';') + '\n' +
+          ['Vereador', votos.vereador].join(';') + '\n' +
+          ['Prefeito', votos.prefeito].join(';') + '\n';
+        
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', 'votos.csv');
+        document.body.appendChild(link);
+        link.click();
+      }
     </script>
-</body>
+  </body>
 </html>
 
